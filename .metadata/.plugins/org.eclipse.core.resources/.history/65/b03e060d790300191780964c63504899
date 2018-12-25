@@ -1,0 +1,15 @@
+package mh;
+
+public class totaltime {
+
+	public static void main(String[] args) throws InterruptedException {
+		// TODO Auto-generated method stub
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\user\\Downloads\\chromedriver_win32\\chromedriver.exe");
+		pageloadtime time=new pageloadtime();
+		time.openmapprr();
+		time.featuredcategories();
+		
+
+	}
+
+}

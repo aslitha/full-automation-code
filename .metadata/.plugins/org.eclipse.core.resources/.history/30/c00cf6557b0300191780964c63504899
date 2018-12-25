@@ -1,0 +1,46 @@
+package mh;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class pageloadtime extends totaltime {
+	WebDriver driver=new ChromeDriver();
+	long[][] time=new long[10][2];
+	long sum=0;
+	public void  openmapprr() throws InterruptedException {
+		driver.manage().window().maximize();
+		for(int i=0;i<10;i++) {
+			for(int j=0;j<2;j++) {
+		long start=System.currentTimeMillis();
+		driver.get("https://qa.mapprr.com");
+		long stop=System.currentTimeMillis();
+		long totaltime=stop-start;
+		time[i][j]=totaltime;
+		sum+=time[i][j];
+			}
+		}
+		Thread.sleep(2000);
+		driver.findElement(By.id("detect_loc")).click();
+		System.out.println("Total time to open mapprr is "+sum/10+" ms");
+	}
+	public void location() {
+	}
+	public void featuredcategories() {
+		String featcat[]= {"Food-and-Groceries?query=84bNiiHFE20Nwrptvnn1yg==","Health-and-Beauty?query=ML8RNj9MWxtWWgYODzPadA==","Electronics?query=y3GFz+xoXRSG3zLIVGML8g==","Health-and-Pharmacy?query=68jmucEwXArJaB6xd6BHZw==","Books-and-Stationery?query=FEqZbgzNtPEHq82oD2lnUA=="};
+		for(int k=0;k<=featcat.length-1;k++) {
+		for(int i=0;i<10;i++) {
+			for(int j=0;j<2;j++) {
+				long start=System.currentTimeMillis();
+				driver.get("https://qa.mapprr.com/products-by-category/"+featcat[k]);
+				long stop=System.currentTimeMillis();
+				long totaltime=stop-start;
+				time[i][j]=totaltime;
+				sum+=time[i][j];
+			}
+		}
+		System.out.println("Total time to open categories is "+featcat[k]+sum/10+ "ms");
+	}
+	
+	}
+}

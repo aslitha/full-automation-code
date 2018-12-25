@@ -1,0 +1,136 @@
+package mh;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class pageloadtime extends totaltime {
+	WebDriver driver=new ChromeDriver();
+	long[][] time=new long[20][2];
+	long sum=0;
+	public void  openmapprr() throws InterruptedException {
+		driver.manage().window().maximize();
+		for(int i=0;i<10;i++) {
+			for(int j=0;j<2;j++) {
+		long start=System.currentTimeMillis();
+		driver.get("https://qa.mapprr.com");
+		long stop=System.currentTimeMillis();
+		long totaltime=stop-start;
+		time[i][j]=totaltime;
+		sum+=time[i][j];
+			}
+		}
+		Thread.sleep(2000);
+		driver.findElement(By.id("detect_loc")).click();
+		System.out.println("Total time to open mapprr = "+sum/10+" ms");
+	}
+	public void location() {
+	}
+	public void featuredcategories() {
+		String featcat[]= {"Food-and-Groceries?query=84bNiiHFE20Nwrptvnn1yg==","Health-and-Beauty?query=ML8RNj9MWxtWWgYODzPadA==","Electronics?query=y3GFz+xoXRSG3zLIVGML8g==","Health-and-Pharmacy?query=68jmucEwXArJaB6xd6BHZw==","Books-and-Stationery?query=FEqZbgzNtPEHq82oD2lnUA=="};
+		for(int k=0;k<=featcat.length-1;k++) {
+		for(int i=0;i<10;i++) {
+			for(int j=0;j<2;j++) {
+				long start=System.currentTimeMillis();
+				driver.get("https://qa.mapprr.com/products-by-category/"+featcat[k]);
+				long stop=System.currentTimeMillis();
+				long totaltime=stop-start;
+				time[i][j]=totaltime;
+				sum+=time[i][j];
+			}
+		}
+		System.out.println("Total time to open categories is "+featcat[k]+sum/10+ "ms");
+	}
+	
+	}
+	public void login() throws InterruptedException {
+		driver.navigate().to("https://qa.mapprr.com");
+		long start=System.currentTimeMillis();
+		Thread.sleep(2000);
+		driver.findElement(By.id("login_btn")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//*[@id=\"mobile\"]")).sendKeys("1234567890");
+		driver.findElement(By.xpath("//*[contains(@class,'common_btn login_submit_modal')]")).click();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//*[@id=\"otp\"]")).sendKeys("123456");
+		driver.findElement(By.xpath("//*[@id=\"otp_form\"]/div[3]/div/button")).click();
+		long stop=System.currentTimeMillis();
+		long totaltime=stop-start;
+		System.out.println("total login time = "+totaltime+" ms");
+	}
+	public void homelinks() throws InterruptedException {
+		String linktext[]= {"Home","Privacy Policy",  "About Us","Careers","Contact Us","Team","Terms & Conditions","Refund Policy","Blogs"};
+		for (int i=0;i<linktext.length;i++) {
+			for(int k=0;k<10;k++) {
+				for(int j=0;j<2;j++) {
+					Thread.sleep(2000);
+					driver.findElement(By.xpath("//*[contains(text(),'"+linktext[i]+"')]")).click();
+		long start=System.currentTimeMillis();
+		long stop=System.currentTimeMillis();
+		long totaltime=stop-start;
+		time[k][j]=totaltime;
+		sum+=time[k][j];
+				}
+				}
+		System.out.println("total time to open "+linktext[i]+" link ="+sum/10+" ms");
+		JavascriptExecutor js=(JavascriptExecutor)driver;
+		js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+		Thread.sleep(3000);
+	}
+	}
+	
+	public void storelocator() throws InterruptedException {
+		for(int i=0;i<10;i++) {
+			for(int j=0;j<2;j++) {
+		long start=System.currentTimeMillis();
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//*[@id=\"header\"]/div/div[3]/a")).click();
+		driver.navigate().back();
+		long stop=System.currentTimeMillis();
+		long totaltime=stop-start;
+		time[i][j]=totaltime;
+		sum+=time[i][j];
+			}
+		}
+		System.out.println("Total time to locate store = "+sum/10+" ms");
+	}
+	public void myaccount() {
+		for(int i=0;i<10;i++) {
+			for(int j=0;j<2;j++) {
+		long start=System.currentTimeMillis();
+		driver.get("https://qa.mapprr.com/profile");
+		long stop=System.currentTimeMillis();
+		long totaltime=stop-start;
+		time[i][j]=totaltime;
+		sum+=time[i][j];
+			}
+		}
+		System.out.println("Total time to load My Account page  = "+sum/10+" ms");
+	}
+	public void popularstores() throws InterruptedException {
+		String stores[]= {"MedPlus","Nykaa","Big C","Ratnadeep Super Market","Vijetha Super Market","Ghanshyam Super Market","Healthkart","The Body Shop","Apollo Pharmacy","New U"};
+		for(int i=0;i<stores.length;i++) {
+			Thread.sleep(3000);
+			WebElement sto=driver.findElement(By.xpath("//*[contains(text(),'"+stores[i]+"')]"));
+			Thread.sleep(3000);
+			sto.click();
+			for(int j=0;j<10;j++) {
+				for(int k=0;k<2;k++) {
+					Thread.sleep(3000);
+					long start=System.currentTimeMillis();
+					driver.findElement(By.xpath("//*[@id=\"list_view\"]/div/div[1]/div[2]/div/div/a/input")).click();
+					Thread.sleep(3000);
+					driver.navigate().back();
+					long stop=System.currentTimeMillis();
+					long totaltime=stop-start;
+					time[j][k]=totaltime;
+					sum+=time[j][k];
+				}
+			}
+			System.out.println("total time to open "+stores[i]+" store = "+ sum/10+" ms");
+		}
+	}
+
+}
